@@ -706,7 +706,7 @@ function PortfolioApp({ content }) {
       <footer className="footer">
         <span>{content.profile.name}</span>
         <p>
-          {content.profile.role} based in {content.profile.location}.
+          {content.profile.role} based in Nairobi.
         </p>
       </footer>
     </>
