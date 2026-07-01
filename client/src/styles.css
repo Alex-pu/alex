@@ -433,6 +433,13 @@ h3 {
   font-weight: 900;
 }
 
+.inline-link {
+  color: #171713;
+  font-weight: 900;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .testimonial {
   padding: 88px max(16px, calc((100% - 900px) / 2));
   background: #171713;
@@ -494,6 +501,8 @@ h3 {
 }
 
 .kilimo-carousel {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   overflow: hidden;
   border: 1px solid rgba(23, 23, 19, 0.08);
   border-radius: 8px;
@@ -504,7 +513,10 @@ h3 {
 .kilimo-media {
   display: grid;
   place-items: center;
-  height: 310px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  min-height: 300px;
+  max-height: 430px;
   background: #062236;
 }
 
@@ -518,6 +530,7 @@ h3 {
   display: grid;
   gap: 12px;
   padding: 22px;
+  background: #fff;
 }
 
 .kilimo-content > span {
@@ -534,13 +547,22 @@ h3 {
 .kilimo-content p {
   margin: 0;
   color: #5f5b52;
+  font-size: 1rem;
   line-height: 1.62;
+}
+
+.kilimo-content .text-link {
+  align-items: center;
+  flex-wrap: wrap;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .kilimo-controls {
   display: flex;
   gap: 8px;
   padding: 0 22px 22px;
+  background: #fff;
 }
 
 .kilimo-controls button {

@@ -6,12 +6,10 @@ import {
   CreditCard,
   Database,
   DraftingCompass,
-  Download,
   ExternalLink,
   Github,
   ImagePlus,
   LayoutDashboard,
-  Lock,
   Mail,
   Map,
   Menu,
@@ -25,9 +23,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { portfolio as fallbackPortfolio } from './data/portfolio.js';
-import { downloadCsvFiles, loadCsvContent } from './utils/csvContent.js';
 
-const storageKey = 'alexPortfolioContent';
 const iconMap = [Code2, BarChart3, LayoutDashboard, Map, Database, Network];
 const serviceIconMap = {
   'Payment Integration': CreditCard,
@@ -45,6 +41,21 @@ function imageUrl(url) {
   return url || '';
 }
 
+function TextWithLinks({ text }) {
+  const parts = String(text).split(/(https?:\/\/[^\s]+|www\.[^\s]+)/g);
+
+  return parts.map((part, index) => {
+    if (!/^(https?:\/\/|www\.)/.test(part)) return part;
+
+    const href = part.startsWith('http') ? part : `https://${part}`;
+    return (
+      <a className="inline-link" href={href} key={`${part}-${index}`} target="_blank" rel="noreferrer">
+        {part}
+      </a>
+    );
+  });
+}
+
 function mergePortfolioContent(baseContent, storedContent = {}) {
   return {
     ...baseContent,
@@ -54,42 +65,9 @@ function mergePortfolioContent(baseContent, storedContent = {}) {
 }
 
 function usePortfolioContent() {
-  const [content, setContent] = useState(() => {
-    const stored = localStorage.getItem(storageKey);
+  const [content, setContent] = useState(fallbackPortfolio);
 
-    if (!stored) return fallbackPortfolio;
-
-    try {
-      return mergePortfolioContent(fallbackPortfolio, JSON.parse(stored));
-    } catch {
-      return fallbackPortfolio;
-    }
-  });
-  const [status, setStatus] = useState('');
-
-  useEffect(() => {
-    let mounted = true;
-
-    loadCsvContent()
-      .then((csvContent) => {
-        const stored = localStorage.getItem(storageKey);
-        const nextContent = stored ? mergePortfolioContent(csvContent, JSON.parse(stored)) : csvContent;
-
-        if (!mounted) return;
-        setContent(nextContent);
-        setStatus(stored ? 'Using browser preview edits. Export CSV files to make them permanent.' : '');
-      })
-      .catch(() => {
-        if (!mounted) return;
-        setStatus('Using bundled fallback content because CSV files could not be loaded.');
-      });
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  return { content, setContent, status };
+  return { content, setContent };
 }
 
 function Header({ content }) {
@@ -114,10 +92,6 @@ function Header({ content }) {
             {link.label}
           </a>
         ))}
-        <a className="login-link" href="/admin" onClick={() => setOpen(false)}>
-          <Lock size={16} />
-          Admin
-        </a>
       </nav>
       <button className="menu-button" type="button" onClick={() => setOpen(!open)} aria-label="Toggle menu">
         {open ? <X size={22} /> : <Menu size={22} />}
@@ -373,7 +347,9 @@ function Experience({ content }) {
             <p>{item.company}</p>
             <ul>
               {(item.points || []).map((point) => (
-                <li key={point}>{point}</li>
+                <li key={point}>
+                  <TextWithLinks text={point} />
+                </li>
               ))}
             </ul>
           </article>
@@ -511,10 +487,9 @@ function AdminApp({ content, setContent }) {
 
   const saveContent = () => {
     const saved = mergePortfolioContent(fallbackPortfolio, draft);
-    localStorage.setItem(storageKey, JSON.stringify(saved));
     setContent(saved);
     setDraft(saved);
-    setMessage('Saved as browser preview. Download CSV files to make the changes permanent in the frontend.');
+    setMessage('Preview updated. Make permanent content changes in client/src/data/portfolio.js.');
   };
 
   const uploadImage = (file, onUploaded) => {
@@ -528,23 +503,9 @@ function AdminApp({ content, setContent }) {
   };
 
   const resetContent = () => {
-    localStorage.removeItem(storageKey);
-    loadCsvContent()
-      .then((csvContent) => {
-        setDraft(csvContent);
-        setContent(csvContent);
-        setMessage('Browser preview reset. The portfolio is reading the CSV files again.');
-      })
-      .catch(() => {
-        setDraft(fallbackPortfolio);
-        setContent(fallbackPortfolio);
-        setMessage('Browser preview reset to bundled fallback content.');
-      });
-  };
-
-  const exportCsv = () => {
-    downloadCsvFiles(draft);
-    setMessage('CSV files downloaded. Replace the matching files in client/public/data, then rebuild/deploy.');
+    setDraft(fallbackPortfolio);
+    setContent(fallbackPortfolio);
+    setMessage('Browser preview reset to the content coded in client/src/data/portfolio.js.');
   };
 
   const setCollection = (key, value) => setDraft((current) => ({ ...current, [key]: value }));
@@ -567,7 +528,7 @@ function AdminApp({ content, setContent }) {
               <ArrowRight className="back-icon" size={17} /> Portfolio
             </a>
             <h1>Admin Dashboard</h1>
-            <p>Edit content visually, preview it in this browser, then export CSV files for the static site.</p>
+            <p>Edit content visually and preview it in this browser. Permanent content lives in the code.</p>
           </div>
           <button className="danger" type="button" onClick={resetContent}>
             <Trash2 size={16} /> Reset local edits
@@ -720,9 +681,6 @@ function AdminApp({ content, setContent }) {
         <section className="admin-actions">
           <button type="button" onClick={saveContent}>
             <Save size={16} /> Save Preview
-          </button>
-          <button type="button" onClick={exportCsv}>
-            <Download size={16} /> Download CSV Files
           </button>
           <span>{message}</span>
         </section>

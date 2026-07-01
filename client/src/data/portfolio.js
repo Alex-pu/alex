@@ -16,17 +16,22 @@ export const portfolio = {
     {
       title: 'Corporate systems',
       caption: 'Websites, admin panels, and support-ready business platforms.',
-      url: '/images/width_800.jpg'
+      url: '/images/corporate.png'
     },
     {
       title: 'E-commerce builds',
       caption: 'Product catalogues, orders, inventory flows, and customer journeys.',
-      url: '/images/screenshot-2024-06-03-115840-1782472422503.png'
+      url: '/images/ecommerce.png'
     },
     {
       title: 'Agritech platforms',
       caption: 'Mobile-first tools for produce, farmer profiles, and buyer enquiries.',
       url: '/images/Kilimo - 1.png'
+    },
+    {
+      title: 'Network Design',
+      caption: 'LANS, WANs, and network infrastructure design.',
+      url: '/images/ntwk.png'
     }
   ],
   stats: [],
@@ -35,7 +40,7 @@ export const portfolio = {
       title: 'Founder of Kilimo Kisasa AI',
       description:
         'Kilimo Kisasa AI is my agritech initiative for AI-assisted crop disease diagnosis and easier sourcing of farm inputs.',
-      image: '/images/Kilimo - 1.png'
+      image: '/images/kisasa.png'
     },
     {
       title: 'Crop diagnosis and input sourcing',
@@ -52,22 +57,28 @@ export const portfolio = {
   ],
   blogSlides: [
     {
-      title: 'Activism and community voice',
+      title: 'Community and Tech Spaces',
       caption:
-        'I care about civic courage, accountability, and the power of ordinary people to speak clearly about the future they want.',
-      image: '/images/width_1600.jpg'
+        'I love the sense of community that comes from being around people who are building, learning, and sharing ideas. I enjoy attending tech garage events, listening to keynotes, and learning from conversations that stretch my thinking. I am also a member of the ISOC Kenya Chapter and GDC, where I stay connected to communities shaping technology, the internet, and developer growth.',
+      image: '/images/isoc.JPG'
     },
     {
-      title: 'Agriculture technology',
+      title: 'Farming and Technology',
       caption:
-        'Agritech matters to me because it connects food, livelihoods, data, and practical tools that can improve everyday farming decisions.',
-      image: '/images/Kilimo - 1.png'
+        'I am a farmer at heart. Coming from a farming family, I have always wanted to use technology to make farming easier, more practical, and more rewarding. Like many people in tech, I spend a lot of time around computers, but if I had to choose, I would still enjoy sitting on an open farm with fresh air, quiet soil, and maybe just one printer in the corner with a bat beside it, just in case it decides to make funny noises.',
+      image: '/images/skuma.jpg'
     },
     {
-      title: 'Building useful things',
+      title: 'Youth Activism in Kenya',
       caption:
-        'Beyond code, I am interested in projects that solve real problems: simple systems, better access, and technology that feels close to people.',
-      image: '/images/WhatsApp Image 2026-05-17 at 20.09.13.jpeg'
+        'Youth activism in Kenya is part of my identity. I do not like seeing young people looked down on, especially when they are the same people carrying the nation forward with their energy, courage, and ideas. I believe in youth coming together to fight for the rights of every Kenyan and to push for a better tomorrow built on dignity, fairness, and accountability.',
+      image: '/images/advocacy.jpg'
+    },
+    {
+      title: 'Local Community Solutions',
+      caption:
+        'I believe some of the most meaningful technology starts close to home. Local communities understand their own problems clearly, and the best solutions should make everyday work easier, improve access to services, and help people organize, communicate, and grow with dignity.',
+      image: '/images/community.JPG'
     }
   ],
   services: [
@@ -116,7 +127,7 @@ export const portfolio = {
         'Hands-on support for hotel departments, networks, VOIP, CCTV, backups, asset tracking, and day-to-day incident response.',
       tags: ['Networks', 'VOIP', 'CCTV'],
       accent: '#6dc6ff',
-      image: '/images/width_800.jpg',
+      image: '/images/ntwk.png',
       link: ''
     },
     {
@@ -126,7 +137,7 @@ export const portfolio = {
         'A modern portfolio and content-management foundation that lets projects, services, and testimonials be updated without touching code.',
       tags: ['React', 'Node.js', 'Express'],
       accent: '#b6f09c',
-      image: '/images/screenshot-2024-06-03-115840-1782472422503.png',
+      image: '/images/corporate.png',
       link: ''
     },
     {
@@ -146,7 +157,7 @@ export const portfolio = {
         'A job portal that helps employers source casual workers for short-term contracts and everyday casual jobs.',
       tags: ['Job Portal', 'Casual Workers', 'Short Contracts'],
       accent: '#6dc6ff',
-      image: '/images/Screenshot 2026-06-18 115944.png',
+      image: '/images/cc.png',
       link: ''
     }
   ],
@@ -177,6 +188,16 @@ export const portfolio = {
   ],
   experience: [
     {
+      title: 'Founder',
+      company: 'Kilimo Kisasa AI & CasualContracts',
+      period: 'Jan 2026 - Present',
+      points: [
+        'Founded Kilimo Kisasa AI, an agritech platform for AI-assisted crop disease diagnosis and farm input sourcing.',
+        'Founded CasualContracts, a job portal that helps employers source casual workers for short-term contracts and casual jobs.',
+        'Lead product direction, feature planning, content updates, and practical user-focused improvements for both platforms.'
+      ]
+    },
+    {
       title: 'Head of IT Operations and Software Developer',
       company: 'Rainbow Ruiru Resort',
       period: 'April 2024 - Present',
@@ -187,12 +208,13 @@ export const portfolio = {
       ]
     },
     {
-      title: 'Direct Sales Agent - Safaricom Home Fibre',
-      company: 'Remote / Field-Based',
-      period: 'Aug 2024 - Feb 2025',
+      title: 'Freelance Web Developer',
+      company: 'Client Projects',
+      period: 'Project-Based',
       points: [
-        'Supported customer onboarding and fibre installation scheduling.',
-        'Explained router setup and basic connectivity troubleshooting to clients.'
+        'Designed and built responsive websites for small businesses and health-focused brands.',
+        'Delivered client websites including www.healthcave.co.ke, www.afyaplusnutrition.co.ke, and www.palaciohut.co.ke.',
+        'Handled content structure, visual updates, SEO basics, hosting setup, and practical maintenance support.'
       ]
     },
     {
